@@ -5,7 +5,6 @@ set -e  # Detiene el script en caso de error
 # Definir variables
 REPO_URL="https://github.com/LuisGrigore/lcgg.git"
 INSTALL_DIR="/usr/local/bin"
-APP_DIR="app"
 BIN_NAME="lcgg"
 
 echo "Instalando $BIN_NAME..."
@@ -16,7 +15,7 @@ if [ -d "$BIN_NAME" ]; then
 fi
 
 git clone "$REPO_URL" "$BIN_NAME"
-cd "lcgg/app"
+#cd "lcgg/app"
 
 # Copiar el ejecutable al directorio de binarios del sistema
 chmod +x "$BIN_NAME"
