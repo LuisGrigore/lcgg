@@ -15,14 +15,6 @@ DEP_FILES := $(shell find $(BUILD_DIR) -name "*.d")
 
 all: $(EXEC_FILES)
 
-	@echo $(SRC_FILES)
-	@echo
-	@echo $(EXEC_FILES)
-	@echo
-	@echo $(OBJ_FILES)
-	@echo
-	@echo $(DEP_FILES)
-	@echo
 
 $(TEST_DIR)/%: $(TEST_DIR)/%.c $(OBJ_FILES) $(DEP_FILES)
 	$(addprefix -I, $(shell find $(EXTERNALS_DIR) -name "*.h"))
