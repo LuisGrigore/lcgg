@@ -103,7 +103,7 @@ uninstall()
 }
 chek_dir()
 {
-	if [ ! -f ".lcgg_root" ]; then
+	if [ ! (-f ".lcgg_root")  && ! ($1 -eq "-build")]; then
     	echo "lcgg should be run in the root directory of the project."
 		exit 1
 	fi
