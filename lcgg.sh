@@ -92,7 +92,6 @@ update_project_structure()
 
 update_project_structure_command()
 {
-	init
 	update_project_structure
 }
 
@@ -126,7 +125,7 @@ case "$1" in
     -help)
         show_help
         ;;
-    -init-project)
+    -init)
 	    init
 	    ;;
 	-update-project-structure)
