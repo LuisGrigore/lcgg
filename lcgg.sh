@@ -14,7 +14,13 @@ export APP_DIR=$LCGG_DIR/app
 
 export INCLUDES_DIR=$BASE_DIR/includes
 
-
+chek_dir()
+{
+	if [ ! -f ".lcgg_root" ]; then
+    	echo "lcgg should be run in the root directory of the project."
+		exit 1
+	fi
+}
 
 show_help() {
     echo "Uso: ./lcgg -[COMANDO]"
@@ -55,7 +61,7 @@ copy_dir_structure() {
 	echo "La estructura de directorios se ha copiado de '$DIR_ORIGEN' a '$DIR_DESTINO'."
 }
 
-init_project()
+init()
 {
 	mkdir -p $SRC_DIR
 	mkdir -p $EXTERNALS_DIR
@@ -65,6 +71,7 @@ init_project()
 }
 
 build(){
+	chek_dir
 	echo "🧪 Compilando ..."
     SRC_DIR=$SRC_DIR EXTERNALS_DIR=$EXTERNALS_DIR OBJ_DIR=$TARGET_DIR/build make -f $APP_DIR/build_make
 }
@@ -79,7 +86,7 @@ update_project_structure()
 
 update_project_structure_command()
 {
-	init_project
+	init
 	update_project_structure
 }
 
@@ -101,29 +108,20 @@ uninstall()
 	sudo rm -rf /usr/local/bin/lcgg_tool
 	sudo rm -rf /home/luis/lcgg
 }
-chek_dir()
-{
-	if [ ! (-f ".lcgg_root")  && ! ($1 -eq "-build")]; then
-    	echo "lcgg should be run in the root directory of the project."
-		exit 1
-	fi
-}
+
 
 # Verifica si se pasó un argumento
 if [ $# -eq 0 ]; then
     echo "Error: No se proporcionó ningún comando. Usa -help para más información."
     exit 1
 fi
-
-
-chek_dir
 # Procesa el argumento
 case "$1" in
     -help)
         show_help
         ;;
     -init-project)
-	    init_project
+	    init
 	    ;;
 	-update-project-structure)
 		update_project_structure_command
