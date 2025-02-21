@@ -1,5 +1,5 @@
 
-export BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/../.."
+export BASE_DIR=pwd/../..
 
 export SRC_DIR=$BASE_DIR/src
 
@@ -96,9 +96,9 @@ test_command()
 	build_command
 
 }
-exit()
+uninstall()
 {
-	export PATH=$(echo $PATH | tr ':' '\n' | grep -v "$LCGG_DIR/app" | paste -sd ':')	
+	sudo rm -f /usr/local/bin/mi-herramienta
 }
 
 # Verifica si se pasó un argumento
@@ -130,8 +130,8 @@ case "$1" in
         make clean
 		cd $LCGG_DIR/app
         ;;
-	-exit)
-		exit
+	-uninstall)
+		uninstall
 		;;
     *)
         echo "Error: Comando no reconocido '$1'. Usa -help para ver los comandos disponibles."
