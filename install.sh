@@ -1,24 +1,20 @@
 #!/bin/bash
+NAME="lcgg"
 
-set -e  # Detiene el script en caso de error
 
-# Definir variables
-REPO_URL="https://github.com/LuisGrigore/lcgg.git"
-INSTALL_DIR="/usr/local/bin"
-BIN_NAME="lcgg"
+INSTALL_DIR="/usr/local/bin/$NAME"
+BIN_PATH="/usr/local/bin/$NAME"
 
-echo "Instalando $BIN_NAME..."
+echo "Instalando mi herramienta en $INSTALL_DIR..."
 
-# Descargar el último código desde GitHub
-if [ -d "$BIN_NAME" ]; then
-    rm -rf "$BIN_NAME"
-fi
+# Crear directorio y copiar archivos
+sudo mkdir -p "$INSTALL_DIR"
+sudo cp -r ./* "$INSTALL_DIR"
 
-git clone "$REPO_URL" "$BIN_NAME"
-#cd "lcgg/app"
+# Crear un enlace simbólico en /usr/local/bin para facilitar la ejecución
+sudo ln -sf "$INSTALL_DIR/$NAME" "$BIN_PATH"
 
-# Copiar el ejecutable al directorio de binarios del sistema
-chmod +x "$BIN_NAME"
-sudo mv "$BIN_NAME/app/*" "$INSTALL_DIR/"
+# Dar permisos de ejecución
+sudo chmod +x "$BIN_PATH"
 
-echo "Instalación completada. Ahora puedes ejecutar '$BIN_NAME' desde cualquier lugar."
+echo "Instalación completada. Ahora puedes ejecutar '$NAME' desde cualquier lugar."
