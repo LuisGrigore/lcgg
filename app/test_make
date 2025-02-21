@@ -1,38 +1,34 @@
-# Configuración de directorios
-SRC_DIR ?= src              # Directorio de origen con archivos .c
-INC_DIR ?= includes         # Directorio que contiene archivos de encabezado .h
-OBJ_DIR ?= obj              # Directorio de destino para archivos .o
+CC := gcc
+CFLAGS := -Wall -Wextra -Werror -Iexternal_deps -MMD -MP
+LDFLAGS := -Lexternal_deps
+LDLIBS := -lm  # Add necessary libraries here
 
-# Buscar todos los archivos .c en el directorio de origen
-SRCS = $(shell find $(SRC_DIR) -name "*.c")
+SRC_DIR := tests
+OBJ_DIR := obj
+EXT_DEPS := external_deps
+BUILD_DIRS := $(OBJ_DIR)
 
-# Generar la lista de archivos .o correspondientes
-OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
+# Find all .c files in the tests directory
+SRC_FILES := $(shell find $(SRC_DIR) -name "*.c")
+OBJ_FILES := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_FILES))
+DEP_FILES := $(patsubst %.o,%.d,$(OBJ_FILES))
 
-# Generar la lista de ejecutables correspondientes
-EXECS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%,$(SRCS))
+# Create necessary directories
+$(shell mkdir -p $(BUILD_DIRS))
 
-# Regla principal: compilar todos los ejecutables
-all: $(EXECS)
+all: test_runner
 
-# Regla para compilar archivos .c a archivos .o
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(dir $@)               # Crear el directorio de destino si no existe
-	gcc -c $< -o $@ -I$(INC_DIR)       # Compilar el archivo .c en .o
-
-# Regla para enlazar archivos .o a ejecutables
-$(OBJ_DIR)/%: $(OBJ_DIR)/%.o
-	gcc -o $@ $<                       # Enlazar el archivo .o para crear el ejecutable
-
-# Generar dependencias automáticamente
--include $(OBJS:.o=.d)
+test_runner: $(OBJ_FILES)
+	$(CC) $(OBJ_FILES) $(LDFLAGS) $(LDLIBS) -o $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(dir $@)               # Crear el directorio de destino si no existe
-	gcc -MMD -c $< -o $@ -I$(INC_DIR)  # Compilar el archivo .c en .o y generar un archivo .d
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
 
-# Regla para limpiar los archivos .o y los ejecutables generados
+# Include dependency files
+-include $(OBJ_FILES:.o=.d)
+
 clean:
-	rm -rf $(OBJ_DIR)/*.o $(OBJ_DIR)/**/*.o $(OBJ_DIR)/* $(OBJ_DIR)/**/*.d
+	rm -rf $(OBJ_DIR) test_runner
 
 .PHONY: all clean

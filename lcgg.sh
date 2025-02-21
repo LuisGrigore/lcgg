@@ -105,6 +105,11 @@ args_check() {
     fi
 }
 
+make_tests()
+{
+    make -f "$APP_DIR/test_make" SRC_DIR="$TARGET_DIR/build" EXTERNALS_DIR="$EXTERNALS_DIR" OBJ_DIR="$TARGET_DIR/build"
+}
+
 #Command functions.
 update_command()
 {
@@ -113,7 +118,7 @@ update_command()
 
 test_command() {
     echo "$MSG_TESTING"
-    build_command
+    make_tests
 }
 
 build_command() {
