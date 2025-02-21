@@ -103,7 +103,9 @@ uninstall()
 }
 chek_dir()
 {
-
+	if [ ! -f ".lcgg_root" ]; then
+    	echo "lcgg should be run in the root directory of the project."
+	fi
 }
 
 # Verifica si se pasó un argumento
@@ -112,6 +114,8 @@ if [ $# -eq 0 ]; then
     exit 1
 fi
 
+
+chek_dir
 # Procesa el argumento
 case "$1" in
     -help)
