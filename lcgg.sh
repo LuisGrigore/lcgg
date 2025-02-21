@@ -77,7 +77,6 @@ init()
 }
 
 build(){
-	chek_dir
 	echo "🧪 Compilando ..."
     SRC_DIR=$SRC_DIR EXTERNALS_DIR=$EXTERNALS_DIR OBJ_DIR=$TARGET_DIR/build make -f $APP_DIR/build_make
 }
@@ -98,6 +97,7 @@ update_project_structure_command()
 
 build_command()
 {
+	chek_dir
 	update_project_structure_command
 	build
 }
