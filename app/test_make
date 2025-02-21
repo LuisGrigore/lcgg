@@ -18,7 +18,7 @@ all: $(EXES)
 # Regla para compilar archivos .c a ejecutables
 $(SRC_DIR)/%: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)      # Crear el directorio de destino si no existe
-	gcc -o $@ $< $(addprefix -I,$(INC_DIRS))  # Compilar el archivo .c en ejecutable
+	gcc -o $(SRC_DIR) $@ $< $(addprefix -I,$(INC_DIRS))  # Compilar el archivo .c en ejecutable
 
 # Regla para limpiar los ejecutables generados
 clean:
