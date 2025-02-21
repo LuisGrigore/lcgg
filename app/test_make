@@ -1,29 +1,26 @@
-CC := gcc
-CFLAGS := -Wall -Wextra -Werror -Iexternals -MMD -MP
-LDFLAGS := -Lexternals
-LDLIBS := -lm  # Add necessary libraries here
+# Configuración de directorios
+SRC_DIR ?= src            # Directorio de origen con archivos .c y .h
+EXTERNALS_DIR ?= externals # Directorio que contiene archivos de encabezado externos
 
-TEST_DIR ?= test
-BUILD_DIR ?= target/build
-EXT_DEPS ?= externals
+# Buscar todos los archivos .c en el directorio de origen y subdirectorios
+SRCS = $(shell find $(SRC_DIR) -name "*.c")
 
-# Find all .c files in the test directory and subdirectories
-SRC_FILES := $(shell find $(TEST_DIR) -name "*.c")
-EXEC_FILES := $(SRC_FILES:.c=)
-OBJ_FILES := $(shell find $(BUILD_DIR) -name "*.o")
-DEP_FILES := $(shell find $(BUILD_DIR) -name "*.d")
+# Generar la lista de archivos ejecutables correspondientes
+EXES = $(patsubst $(SRC_DIR)/%.c,$(SRC_DIR)/%,$(SRCS))
 
-all: $(EXEC_FILES)
+# Buscar todos los subdirectorios de SRC_DIR y almacenarlos en la variable INC_DIRS
+INC_DIRS = $(shell find $(SRC_DIR) $(EXTERNALS_DIR) -type d)
 
+# Regla principal: compilar todos los ejecutables
+all: $(EXES)
 
-$(TEST_DIR)/%: $(TEST_DIR)/%.c $(OBJ_FILES) $(DEP_FILES)
-	$(addprefix -I, $(shell find $(EXTERNALS_DIR) -name "*.h"))
-	$(CC) $(CFLAGS) $< $(OBJ_FILES) $(LDFLAGS) $(LDLIBS) -o $@
+# Regla para compilar archivos .c a ejecutables
+$(SRC_DIR)/%: $(SRC_DIR)/%.c
+	@mkdir -p $(dir $@)      # Crear el directorio de destino si no existe
+	gcc -o $@ $< $(addprefix -I,$(INC_DIRS))  # Compilar el archivo .c en ejecutable
 
-# Include dependency files
--include $(DEP_FILES)
-
+# Regla para limpiar los ejecutables generados
 clean:
-	rm -rf $(EXEC_FILES)
+	rm -f $(SRC_DIR)/* $(SRC_DIR)/*/$(EXES)
 
 .PHONY: all clean
