@@ -119,7 +119,7 @@ uninstall_command()
 
 args_check()
 {
-	if [ $# -eq 0 ]; then
+	if [ $1 -eq 0 ]; then
 	    echo $E_COMMAND_NOT_FOUND
 		show_help
 	    exit 1
@@ -127,7 +127,7 @@ args_check()
 }
 # Entry point
 
-args_check
+args_check $#
 
 case "$1" in
     -help)
