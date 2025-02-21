@@ -24,8 +24,8 @@ all: $(EXEC_FILES)
 	@echo $(DEP_FILES)
 	@echo
 
-$(TEST_DIR)/%: $(TEST_DIR)/%.c $(OBJ_FILES) $(DEP_FILES)
-	$(CC) $(CFLAGS) $< $(OBJ_FILES) $(LDFLAGS) $(LDLIBS) -o $@
+#$(TEST_DIR)/%: $(TEST_DIR)/%.c $(OBJ_FILES) $(DEP_FILES)
+#	$(CC) $(CFLAGS) $< $(OBJ_FILES) $(LDFLAGS) $(LDLIBS) -o $@
 
 # Include dependency files
 -include $(DEP_FILES)
