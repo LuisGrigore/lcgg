@@ -4,7 +4,7 @@ EXTERNALS_DIR ?= externals # Directorio que contiene archivos de encabezado exte
 SOURCE_DIR ?= AA
 
 # Buscar todos los archivos .c en el directorio de origen y subdirectorios
-SRCS = $(shell find $(SRC_DIR) $(SOURCE_DIR) -name "*.c" "*.h")
+SRCS = $(shell find $(SRC_DIR) $(SOURCE_DIR) -name "*.c" -o -name "*.h")
 
 # Generar la lista de archivos ejecutables correspondientes
 EXES = $(patsubst $(SRC_DIR)/%.c,$(SRC_DIR)/%,$(SRCS))
