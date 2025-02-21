@@ -107,7 +107,7 @@ args_check() {
 
 make_tests()
 {
-    make -f "$APP_DIR/test_make" SRC_DIR="$TEST_DIR" EXTERNALS_DIR="$EXTERNALS_DIR"
+    make -f "$APP_DIR/test_make" SRC_DIR="$TEST_DIR" EXTERNALS_DIR="$EXTERNALS_DIR" SOURCE_DIR="$SRC_DIR"
 }
 
 #Command functions.

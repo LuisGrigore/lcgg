@@ -1,9 +1,10 @@
 # Configuración de directorios
 SRC_DIR ?= src            # Directorio de origen con archivos .c y .h
 EXTERNALS_DIR ?= externals # Directorio que contiene archivos de encabezado externos
+SOURCE_DIR ?= AA
 
 # Buscar todos los archivos .c en el directorio de origen y subdirectorios
-SRCS = $(shell find $(SRC_DIR) -name "*.c")
+SRCS = $(shell find $(SRC_DIR) $(SOURCE_DIR) -name "*.c" "*.h")
 
 # Generar la lista de archivos ejecutables correspondientes
 EXES = $(patsubst $(SRC_DIR)/%.c,$(SRC_DIR)/%,$(SRCS))
