@@ -57,7 +57,6 @@ copy_dir_structure() {
 
 init_project()
 {
-	echo $BASE_DIR
 	mkdir -p $SRC_DIR
 	mkdir -p $EXTERNALS_DIR
 	mkdir -p $TEST_DIR
