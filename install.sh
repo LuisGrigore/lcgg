@@ -17,7 +17,7 @@ if [ -d "$BIN_DIR" ]; then
 fi
 
 git clone "$REPO_URL" "$BIN_NAME"
-cd "$APP_DIR"
+cd "lcgg/$APP_DIR"
 
 # Copiar el ejecutable al directorio de binarios del sistema
 chmod +x "$BIN_NAME"
