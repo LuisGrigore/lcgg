@@ -3,9 +3,9 @@ CFLAGS := -Wall -Wextra -Werror -Iexternal_deps -MMD -MP
 LDFLAGS := -Lexternal_deps
 LDLIBS := -lm  # Add necessary libraries here
 
-SRC_DIR := tests
-OBJ_DIR := obj
-EXT_DEPS := external_deps
+SRC_DIR ?= tests
+OBJ_DIR ?= obj
+EXT_DEPS ?= external_deps
 BUILD_DIRS := $(OBJ_DIR)
 
 # Find all .c files in the tests directory
