@@ -1,34 +1,27 @@
 CC := gcc
-CFLAGS := -Wall -Wextra -Werror -Iexternal_deps -MMD -MP
-LDFLAGS := -Lexternal_deps
+CFLAGS := -Wall -Wextra -Werror -Iexternals -MMD -MP
+LDFLAGS := -Lexternals
 LDLIBS := -lm  # Add necessary libraries here
 
-SRC_DIR ?= tests
-OBJ_DIR ?= obj
-EXT_DEPS ?= external_deps
-BUILD_DIRS := $(OBJ_DIR)
+SRC_DIR ?= test
+BUILD_DIR ?= target/build
+EXT_DEPS ?= externals
 
-# Find all .c files in the tests directory
+# Find all .c files in the test directory and subdirectories
 SRC_FILES := $(shell find $(SRC_DIR) -name "*.c")
-OBJ_FILES := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_FILES))
-DEP_FILES := $(patsubst %.o,%.d,$(OBJ_FILES))
+EXEC_FILES := $(SRC_FILES:.c=)
+OBJ_FILES := $(shell find $(BUILD_DIR) -name "*.o")
+DEP_FILES := $(shell find $(BUILD_DIR) -name "*.d")
 
-# Create necessary directories
-$(shell mkdir -p $(BUILD_DIRS))
+all: $(EXEC_FILES)
 
-all: test_runner
-
-test_runner: $(OBJ_FILES)
-	$(CC) $(OBJ_FILES) $(LDFLAGS) $(LDLIBS) -o $@
-
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+$(SRC_DIR)/%: $(SRC_DIR)/%.c $(OBJ_FILES) $(DEP_FILES)
+	$(CC) $(CFLAGS) $< $(OBJ_FILES) $(LDFLAGS) $(LDLIBS) -o $@
 
 # Include dependency files
--include $(OBJ_FILES:.o=.d)
+-include $(DEP_FILES)
 
 clean:
-	rm -rf $(OBJ_DIR) test_runner
+	rm -rf $(EXEC_FILES)
 
 .PHONY: all clean
