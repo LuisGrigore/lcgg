@@ -8,7 +8,7 @@ BUILD_DIR ?= target/build
 EXT_DEPS ?= externals
 
 # Find all .c files in the test directory and subdirectories
-SRC_FILES := $(find $(TEST_DIR) -name "*.c")
+SRC_FILES := $(shell find $(TEST_DIR) -name "*.c")
 EXEC_FILES := $(SRC_FILES:.c=)
 OBJ_FILES := $(shell find $(BUILD_DIR) -name "*.o")
 DEP_FILES := $(shell find $(BUILD_DIR) -name "*.d")
