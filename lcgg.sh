@@ -8,11 +8,11 @@ APP_DIR="$LCGG_DIR/app"
 
 # Project command variables
 BASE_DIR="$(pwd)"
-SRC_DIR="$BASE_DIR/src"
-TEST_DIR="$BASE_DIR/test"
-EXTERNALS_DIR="$BASE_DIR/externals"
-TARGET_DIR="$BASE_DIR/target"
-INCLUDES_DIR="$BASE_DIR/includes"
+SRC_DIR="./src"
+TEST_DIR="./test"
+EXTERNALS_DIR="./externals"
+TARGET_DIR="./target"
+INCLUDES_DIR="./includes"
 
 # Error messages
 E_COMMAND_NOT_FOUND="❌ Error: Command not found."
