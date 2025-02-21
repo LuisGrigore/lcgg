@@ -16,4 +16,5 @@ sudo ln -sf "$INSTALL_DIR/${NAME}.sh" "$BIN_PATH/${NAME}"
 # Dar permisos de ejecución
 sudo chmod +x "$INSTALL_DIR"
 
-echo "Instalation compleated. Now you can use ${NAME}."
+echo "\n--------------Instalation compleated-----------------------\n"
+echo "Now you can use ${NAME}."

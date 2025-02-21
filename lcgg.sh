@@ -1,44 +1,23 @@
 NAME="lcgg"
 
 #var for internal commands
-
-export LCGG_DIR="/usr/local/bin/${NAME}_tool"
-
-export APP_DIR=$LCGG_DIR/app
-
+LCGG_DIR="/usr/local/bin/${NAME}_tool"
+APP_DIR=$LCGG_DIR/app
 
 #vars for project commands
-export BASE_DIR="$(pwd)"
+BASE_DIR="$(pwd)"
+SRC_DIR=$BASE_DIR/src
+TEST_DIR=$BASE_DIR/test
+EXTERNALS_DIR=$BASE_DIR/externals
+TARGET_DIR=$BASE_DIR/target
+INCLUDES_DIR=$BASE_DIR/includes
 
-export SRC_DIR=$BASE_DIR/src
+#ErrorMessages
+E_COMMAND_NOT_FOUND="Command not found."
+E_NOT_IN_ROOT_DIR="lcgg should be run in the root directory of the project."
 
-export TEST_DIR=$BASE_DIR/test
+#Helper functions
 
-export EXTERNALS_DIR=$BASE_DIR/externals
-
-export TARGET_DIR=$BASE_DIR/target
-
-export INCLUDES_DIR=$BASE_DIR/includes
-
-chek_dir()
-{
-	if [ ! -f ".lcgg_root" ]; then
-    	echo "lcgg should be run in the root directory of the project."
-		exit 1
-	fi
-}
-
-show_help() {
-    echo "Uso: ./lcgg -[COMANDO]"
-    echo ""
-    echo "Comandos disponibles:"
-    echo "	-build						Compila el proyecto usando Makefile"
-	echo "	-init						Copia la estructura de carpetas de src a test sin alterar lo ya existente"
-	echo "	-update-structure			Copia la estructura de carpetas de src a test sin alterar lo ya existente"
-    echo "	-test						Ejecuta pruebas definidas en Makefile"
-    echo "	-uninstall					Uninstalls lcgg tool."
-    echo "	-help						Muestra este mensaje de ayuda"
-}
 
 copy_dir_structure() {
 	if [ "$#" -ne 2 ]; then
@@ -66,6 +45,26 @@ copy_dir_structure() {
 	echo "La estructura de directorios se ha copiado de '$DIR_ORIGEN' a '$DIR_DESTINO'."
 }
 
+chek_dir()
+{
+	if [ ! -f ".lcgg_root" ]; then
+    	echo $E_NOT_IN_ROOT_DIR
+		exit 1
+	fi
+}
+
+show_help() {
+    echo "Usage: lcgg -[COMMAND]"
+    echo ""
+    echo "Availible commands:"
+    echo "	-build						Builds the .o and executables from src to target/build and target/out respectively."
+	echo "	-init						Makes current directory into a lcgg project."
+	echo "	-update-structure			Updates all directories that should mimic src."
+    echo "	-test						Compiles and runs tests inside test folder."
+    echo "	-uninstall					Uninstalls lcgg tool."
+    echo "	-help						Shows help"
+}
+
 init()
 {
 	mkdir -p $SRC_DIR
@@ -76,13 +75,11 @@ init()
 }
 
 build(){
-	echo "🧪 Compilando ..."
     SRC_DIR=$SRC_DIR EXTERNALS_DIR=$EXTERNALS_DIR OBJ_DIR=$TARGET_DIR/build make -f $APP_DIR/build_make
 }
 
 update_structure()
 {
-	echo "Updating..."
 	copy_dir_structure "$SRC_DIR" "$TEST_DIR"
 	copy_dir_structure "$SRC_DIR" "$INCLUDES_DIR"
 	copy_dir_structure "$SRC_DIR" "$TARGET_DIR/build"
@@ -90,12 +87,14 @@ update_structure()
 
 update_structure_command()
 {
+	echo "UPDATING STRUCTURE ..."
 	update_project_structure
 }
 
 
 build_command()
 {
+	echo "🧪 BUILDING ..."
 	chek_dir
 	update_project_structure_command
 	build
@@ -112,13 +111,24 @@ uninstall()
 	sudo rm -rf /usr/local/bin/lcgg_tool
 }
 
+uninstall_command()
+{
+	echo "UNINSTALLING ..."
+	uninstall
+}
 
-# Verifica si se pasó un argumento
-if [ $# -eq 0 ]; then
-    echo "Error: No se proporcionó ningún comando. Usa -help para más información."
-    exit 1
-fi
-# Procesa el argumento
+args_check()
+{
+	if [ $# -eq 0 ]; then
+	    echo $E_COMMAND_NOT_FOUND
+		show_help
+	    exit 1
+	fi
+}
+# Entry point
+
+args_check
+
 case "$1" in
     -help)
         show_help
