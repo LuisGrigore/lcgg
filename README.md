@@ -1,2 +1,2 @@
 To install run : 
-curl -sSL https://raw.githubusercontent.com/usuario/mi-herramienta/main/install.sh | bash
+"curl -sSL https://raw.githubusercontent.com/LuisGrigore/lcgg/main/install.sh | bash"
