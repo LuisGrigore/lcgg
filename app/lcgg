@@ -98,7 +98,8 @@ test_command()
 }
 uninstall()
 {
-	sudo rm -f /usr/local/bin/mi-herramienta
+	sudo rm -f /usr/local/bin/lcgg
+	sudo rm -f /lcgg
 }
 
 # Verifica si se pasó un argumento
