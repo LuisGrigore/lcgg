@@ -99,7 +99,7 @@ test_command()
 uninstall()
 {
 	sudo rm -f /usr/local/bin/lcgg
-	sudo rm -f /home/luis/lcgg
+	sudo rm -rf /home/luis/lcgg
 }
 
 # Verifica si se pasó un argumento
