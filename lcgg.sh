@@ -98,6 +98,7 @@ test_command()
 uninstall()
 {
 	sudo rm -f /usr/local/bin/lcgg
+	sudo rm -rf /usr/local/bin/lcgg_tools
 	sudo rm -rf /home/luis/lcgg
 }
 
