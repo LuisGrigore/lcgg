@@ -69,7 +69,7 @@ show_help() {
     echo "  -init                 Initializes the current directory as an lcgg project."
     echo "  -update-structure     Updates all directories that should mirror 'src'."
     echo "  -test                 Compiles and runs tests in the 'test' folder."
-    echo "  -uninstall            Updates lcgg tool to the latest version."
+    echo "  -update               Updates lcgg tool to the latest version."
     echo "  -uninstall            Uninstalls lcgg tool."
     echo "  -help                 Displays this help message."
 }
