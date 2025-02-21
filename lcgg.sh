@@ -32,13 +32,12 @@ show_help() {
     echo "Uso: ./lcgg -[COMANDO]"
     echo ""
     echo "Comandos disponibles:"
-    echo "  -build        				Compila el proyecto usando Makefile"
-	echo "	-init-project				Copia la estructura de carpetas de src a test sin alterar lo ya existente"
-	echo "	-update-project-structure	Copia la estructura de carpetas de src a test sin alterar lo ya existente"
-    echo "  -run          				Ejecuta el programa compilado"
-    echo "  -test         				Ejecuta pruebas definidas en Makefile"
-    echo "  -clean        				Elimina archivos de compilación"
-    echo "  -help         				Muestra este mensaje de ayuda"
+    echo "	-build						Compila el proyecto usando Makefile"
+	echo "	-init						Copia la estructura de carpetas de src a test sin alterar lo ya existente"
+	echo "	-update-structure			Copia la estructura de carpetas de src a test sin alterar lo ya existente"
+    echo "	-test						Ejecuta pruebas definidas en Makefile"
+    echo "	-uninstall					Uninstalls lcgg tool."
+    echo "	-help						Muestra este mensaje de ayuda"
 }
 
 copy_dir_structure() {
@@ -81,7 +80,7 @@ build(){
     SRC_DIR=$SRC_DIR EXTERNALS_DIR=$EXTERNALS_DIR OBJ_DIR=$TARGET_DIR/build make -f $APP_DIR/build_make
 }
 
-update_project_structure()
+update_structure()
 {
 	echo "Updating..."
 	copy_dir_structure "$SRC_DIR" "$TEST_DIR"
@@ -89,7 +88,7 @@ update_project_structure()
 	copy_dir_structure "$SRC_DIR" "$TARGET_DIR/build"
 }
 
-update_project_structure_command()
+update_structure_command()
 {
 	update_project_structure
 }
@@ -111,7 +110,6 @@ uninstall()
 {
 	sudo rm -f /usr/local/bin/lcgg
 	sudo rm -rf /usr/local/bin/lcgg_tool
-	sudo rm -rf /home/luis/lcgg
 }
 
 
@@ -128,20 +126,14 @@ case "$1" in
     -init)
 	    init
 	    ;;
-	-update-project-structure)
-		update_project_structure_command
+	-update-structure)
+		update_project_command
 		;;
     -build)
         build_command
         ;;
     -test)
 		test_command
-        ;;
-    -clean)
-        echo "🧹 Limpiando archivos de compilación..."
-		cd $TARGET_DIR/build
-        make clean
-		cd $LCGG_DIR/app
         ;;
 	-uninstall)
 		uninstall
