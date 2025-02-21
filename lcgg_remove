@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Obtener la ruta absoluta del directorio del script
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+echo "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Detectar el archivo de configuración según el shell
+if [ -n "$BASH_VERSION" ]; then
+    CONFIG_FILE="$HOME/.bashrc"
+elif [ -n "$ZSH_VERSION" ]; then
+    CONFIG_FILE="$HOME/.zshrc"
+else
+    echo "❌ Error: Shell no soportado. Edita manualmente tu archivo de configuración."
+    exit 1
+fi
+
+# Verificar si la ruta está en el archivo de configuración
+if grep -q "export PATH=\"\$PATH:$SCRIPT_DIR\"" "$CONFIG_FILE"; then
+    # Eliminar la línea que añade la ruta al PATH
+    sed -i "\|export PATH=\"\\$PATH:$SCRIPT_DIR\"|d" "$CONFIG_FILE"
+
+    # Recargar el archivo de configuración
+    source "$CONFIG_FILE"
+
+    echo "✅ '$SCRIPT_DIR' ha sido eliminado del PATH."
+    echo "ℹ️ Cierra y vuelve a abrir la terminal o ejecuta 'source $CONFIG_FILE' para aplicar los cambios."
+else
+    echo "ℹ️ '$SCRIPT_DIR' no estaba en el PATH. No hay cambios que hacer."
+fi
