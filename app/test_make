@@ -25,7 +25,7 @@ all: $(EXEC_FILES)
 	@echo
 
 $(TEST_DIR)/%: $(TEST_DIR)/%.c $(OBJ_FILES) $(DEP_FILES)
-	$(addprefix -I, $(shell find $(EXTERNALS_DIR) -type h))
+	$(addprefix -I, $(shell find $(EXTERNALS_DIR) -name "*.h"))
 	$(CC) $(CFLAGS) $< $(OBJ_FILES) $(LDFLAGS) $(LDLIBS) -o $@
 
 # Include dependency files
