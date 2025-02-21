@@ -7,13 +7,12 @@ REPO_URL="https://github.com/LuisGrigore/lcgg.git"
 INSTALL_DIR="/usr/local/bin"
 APP_DIR="app"
 BIN_NAME="lcgg"
-BIN_DIR=$APP_DIR/$BIN_NAME
 
 echo "Instalando $BIN_NAME..."
 
 # Descargar el último código desde GitHub
-if [ -d "$BIN_DIR" ]; then
-    rm -rf "$BIN_DIR"
+if [ -d "$BIN_NAME" ]; then
+    rm -rf "$BIN_NAME"
 fi
 
 git clone "$REPO_URL" "$BIN_NAME"
