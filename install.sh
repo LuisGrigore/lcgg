@@ -21,6 +21,6 @@ cd "lcgg/app"
 
 # Copiar el ejecutable al directorio de binarios del sistema
 chmod +x "$BIN_NAME"
-mv "$BIN_NAME" "$INSTALL_DIR/"
+sudo mv "$BIN_NAME" "$INSTALL_DIR/"
 
 echo "Instalación completada. Ahora puedes ejecutar '$BIN_NAME' desde cualquier lugar."
