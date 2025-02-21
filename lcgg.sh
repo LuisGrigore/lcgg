@@ -17,8 +17,10 @@ INCLUDES_DIR="$BASE_DIR/includes"
 # Error messages
 E_COMMAND_NOT_FOUND="❌ Error: Command not found."
 E_NOT_IN_ROOT_DIR="❌ Error: lcgg should be run in the root directory of the project."
+E_UNKNOWN_COMMAND="❌ Error: Unknown command '$1'. Use -help to see available commands."
 
 # Informational messages
+MSG_INIT_PROJECT="🚀 Initializing lcgg project..."
 MSG_BUILDING="🛠️ Building project..."
 MSG_TESTING="🧪 Running tests..."
 MSG_UNINSTALLING="🗑️ Uninstalling lcgg..."
@@ -73,7 +75,6 @@ show_help() {
 }
 
 init() {
-    echo "🚀 Initializing lcgg project..."
     mkdir -p "$SRC_DIR"
     mkdir -p "$EXTERNALS_DIR"
     mkdir -p "$TEST_DIR"
@@ -83,34 +84,18 @@ init() {
 }
 
 build() {
-    echo "$MSG_BUILDING"
     make -f "$APP_DIR/build_make" SRC_DIR="$SRC_DIR" EXTERNALS_DIR="$EXTERNALS_DIR" OBJ_DIR="$TARGET_DIR/build"
     echo "$MSG_DONE"
 }
 
 update_structure() {
-    echo "$MSG_STRUCTURE_UPDATING"
     copy_dir_structure "$SRC_DIR" "$TEST_DIR"
     copy_dir_structure "$SRC_DIR" "$INCLUDES_DIR"
     copy_dir_structure "$SRC_DIR" "$TARGET_DIR/build"
     echo "$MSG_DONE"
 }
 
-build_command() {
-    echo "$MSG_BUILDING"
-    check_dir
-    update_structure
-    build
-}
-
-test_command() {
-    echo "$MSG_TESTING"
-    build_command
-    echo "$MSG_DONE"
-}
-
 uninstall() {
-    echo "$MSG_UNINSTALLING"
     sudo rm -f /usr/local/bin/lcgg
     sudo rm -rf /usr/local/bin/lcgg_tool
     echo "$MSG_DONE"
@@ -124,9 +109,46 @@ args_check() {
     fi
 }
 
+#Command functions.
 update_command()
 {
 	curl -sSL https://raw.githubusercontent.com/LuisGrigore/lcgg/main/install.sh | bash
+}
+
+test_command() {
+    echo "$MSG_TESTING"
+    build_command
+    echo "$MSG_DONE"
+}
+
+build_command() {
+    check_dir
+    echo "$MSG_BUILDING"
+    update_structure
+    build
+}
+
+update_structure_command()
+{
+    echo "$MSG_STRUCTURE_UPDATING"
+	update_structure
+}
+
+init_command()
+{
+	echo $MSG_INIT_PROJECT
+	init
+}
+
+help_command()
+{
+	show_help
+}
+
+uninstall_command()
+{
+    echo "$MSG_UNINSTALLING"
+	uninstall
 }
 
 # Entry point
@@ -134,13 +156,13 @@ args_check "$@"
 
 case "$1" in
     -help)
-        show_help
+        help_command
         ;;
     -init)
-        init
+        init_command
         ;;
     -update-structure)
-        update_structure
+        update_structure_command
         ;;
     -build)
         build_command
@@ -152,10 +174,10 @@ case "$1" in
         update_command
         ;;
     -uninstall)
-        uninstall
+        uninstall_command
         ;;
     *)
-        echo "❌ Error: Unknown command '$1'. Use -help to see available commands."
+        echo $E_UNKNOWN_COMMAND
         exit 1
         ;;
 esac
