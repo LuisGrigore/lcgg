@@ -1,3 +1,13 @@
+NAME="lcgg"
+
+#var for internal commands
+
+export LCGG_DIR="/usr/local/bin/${NAME}_tool"
+
+export APP_DIR=$LCGG_DIR/app
+
+
+#vars for project commands
 export BASE_DIR="$(pwd)"
 
 export SRC_DIR=$BASE_DIR/src
@@ -7,10 +17,6 @@ export TEST_DIR=$BASE_DIR/test
 export EXTERNALS_DIR=$BASE_DIR/externals
 
 export TARGET_DIR=$BASE_DIR/target
-
-export LCGG_DIR=$BASE_DIR/lcgg
-
-export APP_DIR=$LCGG_DIR/app
 
 export INCLUDES_DIR=$BASE_DIR/includes
 
