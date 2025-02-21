@@ -80,25 +80,21 @@ init() {
     mkdir -p "$TEST_DIR"
     mkdir -p "$INCLUDES_DIR"
     echo "Project name" > .lcgg_root
-    echo "$MSG_DONE"
 }
 
 build() {
     make -f "$APP_DIR/build_make" SRC_DIR="$SRC_DIR" EXTERNALS_DIR="$EXTERNALS_DIR" OBJ_DIR="$TARGET_DIR/build"
-    echo "$MSG_DONE"
 }
 
 update_structure() {
     copy_dir_structure "$SRC_DIR" "$TEST_DIR"
     copy_dir_structure "$SRC_DIR" "$INCLUDES_DIR"
     copy_dir_structure "$SRC_DIR" "$TARGET_DIR/build"
-    echo "$MSG_DONE"
 }
 
 uninstall() {
     sudo rm -f /usr/local/bin/lcgg
     sudo rm -rf /usr/local/bin/lcgg_tool
-    echo "$MSG_DONE"
 }
 
 args_check() {
@@ -118,7 +114,6 @@ update_command()
 test_command() {
     echo "$MSG_TESTING"
     build_command
-    echo "$MSG_DONE"
 }
 
 build_command() {
@@ -181,3 +176,4 @@ case "$1" in
         exit 1
         ;;
 esac
+echo "$MSG_DONE"
