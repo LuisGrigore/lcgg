@@ -105,6 +105,7 @@ chek_dir()
 {
 	if [ ! -f ".lcgg_root" ]; then
     	echo "lcgg should be run in the root directory of the project."
+		exit 1
 	fi
 }
 
