@@ -1,22 +1,28 @@
-NAME="lcgg"
+#!/bin/bash
 
+NAME="lcgg"
 INSTALL_DIR="/usr/local/bin/${NAME}_tool"
 BIN_PATH="/usr/local/bin"
 
-echo "Instalando mi herramienta en $INSTALL_DIR..."
+echo "🔍 Checking installation in $INSTALL_DIR..."
 
-# Crear directorio y copiar archivos
-sudo mkdir -p "$INSTALL_DIR"
-sudo git clone https://github.com/LuisGrigore/lcgg.git $INSTALL_DIR
-#sudo cp -r ./lcgg "$INSTALL_DIR"
+# If the tool is already installed, update it
+if [ -d "$INSTALL_DIR/.git" ]; then
+    echo "🔄 Updating the tool..."
+    sudo git -C "$INSTALL_DIR" pull
+else
+    echo "📥 Installing the tool..."
+    sudo mkdir -p "$INSTALL_DIR"
+    sudo git clone https://github.com/LuisGrigore/lcgg.git "$INSTALL_DIR"
+fi
 
-# Crear un enlace simbólico en /usr/local/bin para facilitar la ejecución
+# Create a symbolic link in /usr/local/bin for easy execution
 sudo ln -sf "$INSTALL_DIR/${NAME}.sh" "$BIN_PATH/${NAME}"
 
-# Dar permisos de ejecución
-sudo chmod +x "$INSTALL_DIR"
+# Ensure the main script has execution permissions
+sudo chmod +x "$INSTALL_DIR/${NAME}.sh"
 
 echo
-echo "--------------Instalation compleated-----------------------"
+echo "--------------- Installation / Update Completed ----------------"
 echo
-echo "Now you can use ${NAME}."
+echo "Now you can use '${NAME}' in the terminal."
