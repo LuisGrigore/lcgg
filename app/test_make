@@ -15,9 +15,10 @@ DEP_FILES := $(shell find $(BUILD_DIR) -name "*.d")
 
 all: $(EXEC_FILES)
 
-	@echo $(TEST_DIR)
-	@echo $(BUILD_DIR)
-	@echo $(EXT_DEPS)
+	@echo $(SRC_FILES)
+	@echo $(EXEC_FILES)
+	@echo $(OBJ_FILES)
+	@echo $(DEP_FILES)
 
 $(TEST_DIR)/%: $(TEST_DIR)/%.c $(OBJ_FILES) $(DEP_FILES)
 	$(CC) $(CFLAGS) $< $(OBJ_FILES) $(LDFLAGS) $(LDLIBS) -o $@
