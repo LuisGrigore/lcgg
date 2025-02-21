@@ -61,6 +61,7 @@ init_project()
 	mkdir -p $EXTERNALS_DIR
 	mkdir -p $TEST_DIR
 	mkdir -p $INCLUDES_DIR
+	echo "Project name" > .lcgg_root
 }
 
 build(){
@@ -99,6 +100,10 @@ uninstall()
 	sudo rm -f /usr/local/bin/lcgg
 	sudo rm -rf /usr/local/bin/lcgg_tool
 	sudo rm -rf /home/luis/lcgg
+}
+chek_dir()
+{
+
 }
 
 # Verifica si se pasó un argumento
