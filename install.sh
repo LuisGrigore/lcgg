@@ -5,7 +5,7 @@ set -e  # Detiene el script en caso de error
 # Definir variables
 REPO_URL="https://github.com/LuisGrigore/lcgg.git"
 INSTALL_DIR="/usr/local/bin"
-BIN_NAME="lcgg"
+BIN_NAME="app/lcgg"
 
 echo "Instalando $BIN_NAME..."
 
