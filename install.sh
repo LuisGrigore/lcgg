@@ -9,7 +9,7 @@ sudo git clone https://github.com/LuisGrigore/lcgg.git $INSTALL_DIR
 #sudo cp -r ./lcgg "$INSTALL_DIR"
 
 # Crear un enlace simbólico en /usr/local/bin para facilitar la ejecución
-sudo ln -sf "$INSTALL_DIR/lcgg" "$BIN_PATH"
+sudo ln -sf "$INSTALL_DIR/lcgg" "$BIN_PATH/lcgg.sh"
 
 # Dar permisos de ejecución
 sudo chmod +x "$INSTALL_DIR"
