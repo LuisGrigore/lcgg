@@ -20,6 +20,9 @@ TEST_OBJ_FILES := $(TEST_C_FILES:.c=.o)
 
 # Regla para compilar cada archivo fuente por separado
 test_obj_files: $(TEST_C_FILES) $(TEST_H_DIRS)
+	@echo
+	@echo $(SRC_H_DIRS)
+	@echo
 	$(CC) $(CFLAGS) $(TEST_C_FILES) -I$(SRC_H_DIRS) $< -o $@
 
 
