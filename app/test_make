@@ -29,8 +29,9 @@ TEST_OBJ_FILES := $(TEST_C_FILES:.c=.o)
 
 # Regla para compilar cada archivo fuente por separado
 test_obj_files: $(TEST_C_FILES)
-
-	$(CC) $(CFLAGS) $(TEST_C_FILES) $(SRC_C_FILES) $(EXTERNAL_C_FILES) $(LIB_DIRS_EXTERNALS) -Lexternals/libc -lft $ $(INCLUDE_SRC_DIRS) $(INCLUDE_EXTERNALS_DIRS) $(INCLUDE_TEST_DIRS) -o a.o
+	@for file in $(TEST_C_FILES); do \
+		$(CC) $(CFLAGS) $$file $(SRC_C_FILES) $(EXTERNAL_C_FILES) $(LIB_DIRS_EXTERNALS) -Lexternals/libc -lft $ $(INCLUDE_SRC_DIRS) $(INCLUDE_EXTERNALS_DIRS) $(INCLUDE_TEST_DIRS) -o a.o; \
+	done
 
 
 all: $(test_obj_files)
