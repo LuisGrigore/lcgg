@@ -52,6 +52,16 @@
 		} \
     } while (0);
 
+#define assert_null(ptr) \
+do { \
+    if ((ptr) != NULL) { \
+        printf(RED "(Assertion failed: %s is not NULL) " RESET, #ptr); \
+    } \
+    else { \
+        printf(GREEN "%s " RESET, OK); \
+    } \
+} while (0);
+
 #define start_unit_test() \
 	printf("%s: ", __func__);
 
