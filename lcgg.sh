@@ -79,6 +79,7 @@ init() {
     mkdir -p "$EXTERNALS_DIR"
     mkdir -p "$TEST_DIR"
     mkdir -p "$INCLUDES_DIR"
+	cp "$APP_DIR/print_test_headder.c" "$BASE_DIR"
     echo "Project name" > .lcgg_root
 }
 
@@ -112,7 +113,12 @@ make_tests()
 
 run_tests()
 {
-	find . -type f -name "*.out" -exec {} \;
+	gcc $BASE_DIR/print_test_headder.c -o $BASE_DIR/print_test_headder.out
+    for file in $(find . -type f -name "*.out"); do
+        $BASE_DIR/print_test_headder.out "$file"
+        "$file"
+    done
+	rm -f $BASE_DIR/print_test_headder.out
 }
 
 clean_tests()
