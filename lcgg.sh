@@ -110,6 +110,11 @@ make_tests()
     make -f "$APP_DIR/test_make"
 }
 
+run_tests()
+{
+	find $TEST_DIR -type f -name "*.out" -exec {} \;
+}
+
 clean_tests()
 {
     make -f "$APP_DIR/test_make" clean
