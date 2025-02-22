@@ -115,7 +115,7 @@ run_tests()
 {
 	gcc $BASE_DIR/print_test_headder.c -o $BASE_DIR/print_test_headder.out
     for file in $(find . -type f -name "*.out"); do
-        $BASE_DIR/print_test_headder.out "$file"
+        $BASE_DIR/print_test_headder.out $(basename "$file")
         "$file"
     done
 	rm -f $BASE_DIR/print_test_headder.out
