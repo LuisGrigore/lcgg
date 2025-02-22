@@ -1,3 +1,7 @@
+## LCGG
+
+Tired of the Makefile hell? Exhausted by endless, convoluted compilation commands? LCGG is a lightweight console tool that simplifies C project management, automating builds and dependencies so you can focus on coding, not configuring.
+
 ## Installation Instructions
 
 To install, run the following command:
