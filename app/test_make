@@ -30,7 +30,7 @@ TEST_OBJ_FILES := $(TEST_C_FILES:.c=.o)
 # Regla para compilar cada archivo fuente por separado
 test_obj_files: $(TEST_C_FILES)
 
-	$(CC) $(CFLAGS) $(TEST_C_FILES) $(SRC_C_FILES) $(EXTERNAL_C_FILES) $(LIB_DIRS_EXTERNALS) $(LIB_EXTERNALS) $ $(INCLUDE_SRC_DIRS) $(INCLUDE_EXTERNALS_DIRS) $(INCLUDE_TEST_DIRS) -o a.o
+	$(CC) $(CFLAGS) $(TEST_C_FILES) $(SRC_C_FILES) $(EXTERNAL_C_FILES) $(LIB_DIRS_EXTERNALS) $ $(INCLUDE_SRC_DIRS) $(INCLUDE_EXTERNALS_DIRS) $(INCLUDE_TEST_DIRS) -o a.o
 
 
 all: $(test_obj_files)
