@@ -63,6 +63,6 @@ do { \
 } while (0);
 
 #define start_unit_test() \
-	printf("%s: ", __func__);
+	printf("\n%s: ", __func__);
 
 #endif
