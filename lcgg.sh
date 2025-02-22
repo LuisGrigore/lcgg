@@ -117,6 +117,7 @@ run_tests()
     for file in $(find $TEST_DIR -type f -name "*.out"); do
         $BASE_DIR/print_test_headder.out $(basename "$file")
         "$file"
+		echo
     done
 	rm -f $BASE_DIR/print_test_headder.out
 }
