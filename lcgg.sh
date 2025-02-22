@@ -112,7 +112,9 @@ make_tests()
 
 run_tests()
 {
-	find $TEST_DIR -type f -name "*.out" -exec {} > /dev/null 2>&1
+	echo
+	find $TEST_DIR -type f -name "*.out" -exec {}
+	echo
 }
 
 clean_tests()
