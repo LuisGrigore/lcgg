@@ -15,6 +15,8 @@ SRC_H_DIRS = $(shell find $(SRC_DIR) -type d)
 EXTERNAL_C_FILES = $(shell find $(EXTERNALS_DIR) -name "*.c")
 EXTERNAL_H_DIRS = $(shell find $(EXTERNALS_DIR) -type d)
 
+MODIFIED_VAR = $(firstword $(TEST_H_DIRS))$(subst  , "-I",$(wordlist 2,$(words $(TEST_H_DIRS)), $(TEST_H_DIRS)))
+
 # Reemplaza la extensión .c por .o para generar los archivos objeto
 TEST_OBJ_FILES := $(TEST_C_FILES:.c=.o)
 
@@ -23,7 +25,7 @@ test_obj_files: $(TEST_C_FILES) $(TEST_H_DIRS)
 	@echo
 	@echo $(EXTERNAL_H_DIRS)
 	@echo
-	$(CC) $(CFLAGS) $(TEST_C_FILES) -I$(EXTERNAL_H_DIRS) $< -o $@
+	$(CC) $(CFLAGS) $(TEST_C_FILES) -I$(EXTERNAL_H_DIRS) $(MODIFIED_VAR) $< -o $@
 
 
 all: $(test_obj_files)
