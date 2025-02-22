@@ -117,6 +117,7 @@ update_command()
 }
 
 test_command() {
+    check_dir
     echo "$MSG_TESTING"
     make_tests
 }
