@@ -22,11 +22,11 @@ MODIFIED_VAR = $(word 1, $(SRC_H_DIRS))$(foreach w,$(wordlist 2,$(words $(SRC_H_
 TEST_OBJ_FILES := $(TEST_C_FILES:.c=.o)
 
 # Regla para compilar cada archivo fuente por separado
-test_obj_files: $(TEST_C_FILES) $(TEST_H_DIRS)
+test_obj_files: $(TEST_C_FILES)
 	@echo
 	@echo $(MODIFIED_VAR)
 	@echo
-	$(CC) $(CFLAGS) $(TEST_C_FILES) -I$(EXTERNAL_H_DIRS) $(MODIFIED_VAR) $< -o $@
+	$(CC) $(CFLAGS) $(TEST_C_FILES) -I$(EXTERNAL_H_DIRS) $(MODIFIED_VAR) -o
 
 
 all: $(test_obj_files)
