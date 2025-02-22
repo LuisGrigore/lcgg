@@ -19,11 +19,11 @@ EXTERNAL_H_DIRS = $(shell find $(EXTERNALS_DIR) -type d)
 TEST_OBJ_FILES := $(TEST_C_FILES:.c=.o)
 
 # Regla para compilar cada archivo fuente por separado
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+test_obj_files: $(TEST_C_FILES) $(TEST_H_DIRS)
+	$(CC) $(CFLAGS) $(TEST_C_FILES) $< -o $@
 
 
-all: $(OBJS)
+all: $(test_obj_files)
 
 
 clean:
