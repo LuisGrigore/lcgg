@@ -34,7 +34,6 @@ endif
 # Regla para compilar cada archivo fuente por separado
 test_obj_files: $(TEST_C_FILES)
 
-	@echo \"$(EXTERNAL_LIB_NAMES)\"
 	@for file in $(TEST_C_FILES); do \
 		$(CC) $(CFLAGS) $$file $(SRC_C_FILES) $(EXTERNAL_C_FILES) $(LIB_DIRS_EXTERNALS) $(LIB_EXTERNALS) $(INCLUDE_SRC_DIRS) $(INCLUDE_EXTERNALS_DIRS) $(INCLUDE_TEST_DIRS) -o $${file%.c}.out; \
 	done
