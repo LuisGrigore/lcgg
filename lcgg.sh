@@ -113,7 +113,7 @@ make_tests()
 run_tests()
 {
 	echo
-	find test -type f -name "*.out" -exec rm -f {} +
+	find test -type f -name "*.out" -exec {} +
 	echo
 }
 
@@ -131,7 +131,7 @@ update_command()
 test_command() {
     check_dir
     echo "$MSG_TESTING"
-    make_tests; run_tests
+    make_tests #; run_tests
 	#clean_tests
 }
 
