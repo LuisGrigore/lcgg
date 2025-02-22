@@ -3,7 +3,7 @@ CFLAGS ?= -Wall -Wextra -O2
 
 TEST_DIR ?= "./test"
 SRC_DIR ?= "./src"
-EXTERNALS_DIR ?= "externals"
+EXTERNALS_DIR ?= "externals/Unity-master/src"
 
 TEST_C_FILES = $(shell find $(TEST_DIR) -name "*.c")
 TEST_H_DIRS = $(shell find $(TEST_DIR) -type d)
