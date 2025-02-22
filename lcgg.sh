@@ -81,6 +81,7 @@ init() {
 	mkdir -p "$TEST_DIR/test_utils"
     mkdir -p "$INCLUDES_DIR"
 	cp "$APP_DIR/print_test_headder.c" "$BASE_DIR"
+	cp "$APP_DIR/assertions.h" "$TEST_DIR/test_utils"
     echo "Project name" > .lcgg_root
 }
 
