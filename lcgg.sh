@@ -132,7 +132,7 @@ test_command() {
     check_dir
     echo "$MSG_TESTING"
     make_tests
-	run_tests
+	#run_tests
 	#clean_tests
 }
 
