@@ -113,7 +113,7 @@ make_tests()
 run_tests()
 {
 	echo
-	find $TEST_DIR -type f -name "*.out" -exec {}
+	find test -type f -name "*.out" -exec rm -f {} +
 	echo
 }
 
