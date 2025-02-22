@@ -37,6 +37,6 @@ all: test_obj_files
 # Regla para limpiar los archivos generados
 clean:
 
-	find $(TEST_DIR) -type f -name "*.out" -exec rm -f {} +
+	@find $(TEST_DIR) -type f -name "*.out" -exec rm -f {} +
 
 .PHONY: all clean

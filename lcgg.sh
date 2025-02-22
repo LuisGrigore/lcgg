@@ -112,9 +112,7 @@ make_tests()
 
 run_tests()
 {
-	echo
 	find . -type f -name "*.out" -exec {} \;
-	echo
 }
 
 clean_tests()
