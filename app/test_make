@@ -22,13 +22,15 @@ INCLUDE_EXTERNALS_DIRS = -I$(word 1, $(EXTERNAL_DIRS))$(foreach w,$(wordlist 2,$
 INCLUDE_TEST_DIRS = -I$(word 1, $(TEST_DIRS))$(foreach w,$(wordlist 2,$(words $(TEST_DIRS)), $(TEST_DIRS)), $(REPLACEMENT)$(w))
 
 LIB_DIRS_EXTERNALS = -L$(word 1, $(EXTERNAL_DIRS))$(foreach w,$(wordlist 2,$(words $(EXTERNAL_DIRS)), $(EXTERNAL_DIRS)), -L$(w))
-LIB_EXTERNALS = -l$(word 1, $(EXTERNAL_A_FILES))$(foreach w,$(wordlist 2,$(words $(EXTERNAL_A_FILES)), $(EXTERNAL_A_FILES)), -l$(w))
+
+EXTERNAL_LIB_NAMES = $(subst .a,, $(subst lib,, $(EXTERNAL_A_FILES)))
+LIB_EXTERNALS = -l$(word 1, $(EXTERNAL_LIB_NAMES))$(foreach w,$(wordlist 2,$(words $(EXTERNAL_LIB_NAMES)), $(EXTERNAL_LIB_NAMES)), -l$(w))
 
 
 # Regla para compilar cada archivo fuente por separado
 test_obj_files: $(TEST_C_FILES)
 	@for file in $(TEST_C_FILES); do \
-		$(CC) $(CFLAGS) $$file $(SRC_C_FILES) $(EXTERNAL_C_FILES) $(LIB_DIRS_EXTERNALS) -lft $ $(INCLUDE_SRC_DIRS) $(INCLUDE_EXTERNALS_DIRS) $(INCLUDE_TEST_DIRS) -o $${file%.c}.out; \
+		$(CC) $(CFLAGS) $$file $(SRC_C_FILES) $(EXTERNAL_C_FILES) $(LIB_DIRS_EXTERNALS) $(LIB_EXTERNALS) $ $(INCLUDE_SRC_DIRS) $(INCLUDE_EXTERNALS_DIRS) $(INCLUDE_TEST_DIRS) -o $${file%.c}.out; \
 	done
 
 
