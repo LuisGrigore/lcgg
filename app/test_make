@@ -7,18 +7,22 @@ SRC_DIR ?= src
 EXTERNALS_DIR ?= externals
 
 TEST_C_FILES = $(shell find $(TEST_DIR) -name "*.c")
-TEST_H_DIRS = $(shell find $(TEST_DIR) -type d)
+TEST_DIRS = $(shell find $(TEST_DIR) -type d)
 
 SRC_C_FILES = $(shell find $(SRC_DIR) -name "*.c")
-SRC_H_DIRS = $(shell find $(SRC_DIR) -type d)
+SRC_DIRS = $(shell find $(SRC_DIR) -type d)
 
 
 EXTERNAL_C_FILES = $(shell find $(EXTERNALS_DIR) -name "*.c")
-EXTERNAL_H_DIRS = $(shell find $(EXTERNALS_DIR) -type d)
+EXTERNAL_A_FILES = $(shell find $(EXTERNALS_DIR) -name "*.a")
+EXTERNAL_DIRS = $(shell find $(EXTERNALS_DIR) -type d)
 
-INCLUDE_SRC_H_DIRS = -I$(word 1, $(SRC_H_DIRS))$(foreach w,$(wordlist 2,$(words $(SRC_H_DIRS)), $(SRC_H_DIRS)), $(REPLACEMENT)$(w))
-INCLUDE_EXTERNALS_H_DIRS = -I$(word 1, $(EXTERNAL_H_DIRS))$(foreach w,$(wordlist 2,$(words $(EXTERNAL_H_DIRS)), $(EXTERNAL_H_DIRS)), $(REPLACEMENT)$(w))
-INCLUDE_TEST_H_DIRS = -I$(word 1, $(TEST_H_DIRS))$(foreach w,$(wordlist 2,$(words $(TEST_H_DIRS)), $(TEST_H_DIRS)), $(REPLACEMENT)$(w))
+INCLUDE_SRC_DIRS = -I$(word 1, $(SRC_DIRS))$(foreach w,$(wordlist 2,$(words $(SRC_DIRS)), $(SRC_DIRS)), $(REPLACEMENT)$(w))
+INCLUDE_EXTERNALS_DIRS = -I$(word 1, $(EXTERNAL_DIRS))$(foreach w,$(wordlist 2,$(words $(EXTERNAL_DIRS)), $(EXTERNAL_DIRS)), $(REPLACEMENT)$(w))
+INCLUDE_TEST_DIRS = -I$(word 1, $(TEST_DIRS))$(foreach w,$(wordlist 2,$(words $(TEST_DIRS)), $(TEST_DIRS)), $(REPLACEMENT)$(w))
+
+LIB_DIRS_EXTERNALS = -L$(word 1, $(EXTERNAL_DIRS))$(foreach w,$(wordlist 2,$(words $(EXTERNAL_DIRS)), $(EXTERNAL_DIRS)), -L$(w))
+LIB_EXTERNALS = -l$(word 1, $(EXTERNAL_A_FILES))$(foreach w,$(wordlist 2,$(words $(EXTERNAL_A_FILES)), $(EXTERNAL_A_FILES)), -l$(w))
 
 # Reemplaza la extensión .c por .o para generar los archivos objeto
 TEST_OBJ_FILES := $(TEST_C_FILES:.c=.o)
@@ -26,7 +30,7 @@ TEST_OBJ_FILES := $(TEST_C_FILES:.c=.o)
 # Regla para compilar cada archivo fuente por separado
 test_obj_files: $(TEST_C_FILES)
 
-	$(CC) $(CFLAGS) $(TEST_C_FILES) $(SRC_C_FILES) $(EXTERNAL_C_FILES) $ $(INCLUDE_SRC_H_DIRS) $(INCLUDE_EXTERNALS_H_DIRS) $(INCLUDE_TEST_H_DIRS) -o a.o
+	$(CC) $(CFLAGS) $(TEST_C_FILES) $(SRC_C_FILES) $(EXTERNAL_C_FILES) $(LIB_DIRS_EXTERNALS) $(LIB_EXTERNALS) $ $(INCLUDE_SRC_DIRS) $(INCLUDE_EXTERNALS_DIRS) $(INCLUDE_TEST_DIRS) -o a.o
 
 
 all: $(test_obj_files)
