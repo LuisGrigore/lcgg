@@ -14,44 +14,45 @@
 #define assert_equal(expected, actual) \
     do { \
         if ((expected) != (actual)) { \
-            printf("Assertion failed: %s != %s :", #expected, #actual); \
-			printf(RED "%s\n" RESET,KO); \
-            exit(1); \
+            printf(RED "(Assertion failed: %s != %s) " RESET, #expected, #actual); \
         } \
-    } while (0); \
-	printf(GREEN "%s" RESET,OK);
+		else { \
+			printf(GREEN "%s " RESET,OK); \
+		} \
+    } while (0);
 
 #define assert_true(condition) \
     do { \
         if (!(condition)) { \
-            printf("Assertion failed: %s is not true :", #condition); \
-			printf(RED "%s\n" RESET,KO); \
-			exit(1); \
+            printf(RED "(Assertion failed: %s is not true) " RESET, #condition); \
         } \
-    } while (0); \
-	printf(GREEN "%s" RESET,OK);
+		else { \
+			printf(GREEN "%s " RESET,OK); \
+		} \
+    } while (0);
 
 #define assert_false(condition) \
     do { \
         if (condition) { \
-            printf("Assertion failed: %s is not false :", #condition); \
-			printf(RED "%s\n" RESET,KO); \
-			exit(1); \
+            printf(RED "(Assertion failed: %s is not false) " RESET, #condition); \
         } \
-    } while (0); \
-	printf(GREEN "%s" RESET,OK);
+		else { \
+			printf(GREEN "%s " RESET,OK); \
+		} \
+    } while (0);
 
 #define assert_not_null(ptr) \
     do { \
         if ((ptr) == NULL) { \
-            printf("Assertion failed: %s is NULL :", #ptr); \
-			printf(RED "%s\n" RESET,KO); \
+            printf(RED "(Assertion failed: %s is NULL) " RESET, #ptr); \
 			exit(1); \
         } \
-    } while (0); \
-	printf(GREEN "%s" RESET,OK);
+		else { \
+			printf(GREEN "%s " RESET,OK); \
+		} \
+    } while (0);
 
 #define start_unit_test() \
-	printf("%s:\n", __func__);
+	printf("%s: ", __func__);
 
 #endif
