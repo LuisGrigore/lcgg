@@ -133,7 +133,7 @@ test_command() {
     echo "$MSG_TESTING"
     make_tests
 	run_tests
-	clean_tests
+	#clean_tests
 }
 
 build_command() {
