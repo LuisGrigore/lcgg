@@ -1,9 +1,10 @@
 CC ?= gcc
 CFLAGS ?= -Wall -Wextra -O2
+REPLACEMENT = -I
 
-TEST_DIR ?= "test"
-SRC_DIR ?= "src"
-EXTERNALS_DIR ?= "externals/Unity-master/src"
+TEST_DIR ?= test
+SRC_DIR ?= src
+EXTERNALS_DIR ?= externals/Unity-master/src
 
 TEST_C_FILES = $(shell find $(TEST_DIR) -name "*.c")
 TEST_H_DIRS = $(shell find $(TEST_DIR) -type d)
@@ -15,7 +16,7 @@ SRC_H_DIRS = $(shell find $(SRC_DIR) -type d)
 EXTERNAL_C_FILES = $(shell find $(EXTERNALS_DIR) -name "*.c")
 EXTERNAL_H_DIRS = $(shell find $(EXTERNALS_DIR) -type d)
 
-MODIFIED_VAR = $(subst  , " -I", $(SRC_H_DIRS))
+MODIFIED_VAR = $(subst  ,$(REPLACEMENT),$(SRC_H_DIRS))
 
 # Reemplaza la extensión .c por .o para generar los archivos objeto
 TEST_OBJ_FILES := $(TEST_C_FILES:.c=.o)
