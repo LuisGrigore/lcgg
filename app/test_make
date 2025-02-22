@@ -14,7 +14,7 @@ SRC_DIRS = $(shell find $(SRC_DIR) -type d)
 
 
 EXTERNAL_C_FILES = $(shell find $(EXTERNALS_DIR) -name "*.c")
-EXTERNAL_A_FILES = $(shell find $(EXTERNALS_DIR) -name "*.a")
+EXTERNAL_A_FILES = $(shell find $(EXTERNALS_DIR) -name "*.a" -exec basename {} \;)
 EXTERNAL_DIRS = $(shell find $(EXTERNALS_DIR) -type d)
 
 INCLUDE_SRC_DIRS = -I$(word 1, $(SRC_DIRS))$(foreach w,$(wordlist 2,$(words $(SRC_DIRS)), $(SRC_DIRS)), $(REPLACEMENT)$(w))
