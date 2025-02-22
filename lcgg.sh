@@ -110,6 +110,11 @@ make_tests()
     make -f "$APP_DIR/test_make"
 }
 
+clean_tests()
+{
+    make -f "$APP_DIR/test_make" clean
+}
+
 #Command functions.
 update_command()
 {
@@ -120,6 +125,7 @@ test_command() {
     check_dir
     echo "$MSG_TESTING"
     make_tests
+	clean_tests
 }
 
 build_command() {
