@@ -15,6 +15,16 @@
 #define GREEN   "\x1b[32m"
 #define RESET   "\x1b[0m"
 
+#define assert_equal_num(expected, actual) \
+    do { \
+        if ((expected) != (actual)) { \
+            printf(RED "(Assert on numerical equality failed: %s != %s) " RESET, #expected, #actual); \
+        } \
+        else { \
+            printf(GREEN "%s " RESET, OK); \
+        } \
+    } while (0);
+
 #define assert_equal_str(expected, actual) \
     do { \
         if (strcmp((expected), (actual)) != 0) { \
