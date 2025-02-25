@@ -86,14 +86,13 @@ do { \
     } \
 } while (0);
 
-#define capture_output(buffer, size, output, retval, func_call) \
+#define CAPTURE_OUTPUT(buffer, size, output, retval, func_call) \
 do { \
     int pipefd[2]; \
     if (pipe(pipefd) == -1) { \
         perror("pipe falló"); \
         exit(1); \
     } \
-    \
     fflush(output); \
     pid_t pid = fork(); \
     if (pid == -1) { \
