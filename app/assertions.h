@@ -86,7 +86,7 @@ do { \
     } \
 } while (0);
 
-#define CAPTURE_OUTPUT(buffer, size, output, retval, func_call) \
+#define capture_output(buffer, size, output, retval, func_call) \
 do { \
     int pipefd[2]; \
     if (pipe(pipefd) == -1) { \
