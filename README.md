@@ -29,6 +29,3 @@ lcgg -[COMMAND]
 - **-update**               Updates the lcgg tool to the latest version.
 - **-uninstall**            Uninstalls the lcgg tool.
 - **-help**                 Displays this help message.
-
-
-sdfsdfs
